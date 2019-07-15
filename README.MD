@@ -1,9 +1,20 @@
 How to install dev env on Windows 10:
 
-1. Install NEOVIM in C:\users\<username> (aka ~)
-2. Run InstallNeoVimPlug.ps1
-3. Move init.vim file from this repo to ~\AppData\Local\nvim (so full path of file ~\AppData\Local\nvim\init.vim)
-4. Open Nvim-qt (GUI version of NeoVim, shortcut should be created in start menu, WNDS btn + search Neovim)
-5. Run :PlugInstall
+1. Run EnvInstall.ps1
+2. Run 
+
+New-Item -ItemType SymbolicLink -Path "~\AppData\Local\nvim\init.vim" -Target "init.vim"
+
+to make symbolic link to init.vim
+
+3. Run :PlugInstall
+4. Open nvim-qt (GUI version of NeoVim, shortcut should be created in start menu, WNDS btn + search Neovim), or just type in Nvim-qt in terminal
+5. Drag fzf.exe to the bin folder in .fzf
+
+6. CocInstall all your autocomplete stuff
+coc-json
+coc-tsserver
+
+(anyways now in config)
 
 Voila!
