@@ -10,6 +10,8 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'joshdick/onedark.vim'
 
+Plug 'liuchengxu/vista.vim'
+
 "------------------------ VIM TSX ------------------------
 " by default, if you open tsx file, neovim does not show syntax colors
 " vim-tsx will do all the coloring for jsx in the .tsx file
@@ -29,8 +31,13 @@ Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 """ END PLUGINS """
 
+" Below line is used as a hack for a multiline comment. I comment out everything below to install the plugins first, then uncomment
+"function! _blockcomment()
+
 " Line numbers on left side
 set number
+" Show cmd being typed
+set showcmd
 " Spaces & Tabs 
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing
@@ -38,8 +45,9 @@ set shiftwidth=4    " number of spaces to use for autoindent
 set expandtab       " tabs are space
 set autoindent
 set copyindent      " copy indent from the previous line
-" Access system clipboard " 
-" set clipboard+=unnamedplus
+
+" Access system clipboard with 'p' "
+set clipboard=unnamedplus
 
 " True colors "
 set termguicolors
@@ -48,6 +56,7 @@ set termguicolors
 " Automatically boot up NERDTree on start in present dir
 autocmd vimenter * NERDTree
 nmap <C-b> :NERDTreeToggle<CR>
+
 """ END NERD TREE CONFIG """
 
 """ COCNVIM CONFIG """
@@ -186,7 +195,18 @@ au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 
 """ FZF CONFIG """
 nnoremap <C-p> :Files<Cr>
+"Below line changes :Files mapping, currently using ripgrep. The default one
+"is slow and ripgrep is fast AF
+" --files: List files that would be searched but do not search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+let $FZF_DEFAULT_COMMAND = 'rg --files'
 """ END FZF CONFIG """
+
+""" VISTA CONFIG """
+noremap <leader>v :Vista coc<Cr> 
 
 """ COLOR SCHEME """
 syntax on
@@ -194,6 +214,14 @@ colorscheme onedark
 
 
 """ terminal mode bindings """
-:tnoremap <ESC> <C-\><C-n>
+tnoremap <ESC> <C-\><C-n>
 
-""" If init.vim fails and crashes shell, run with nvim --cmd silent! 
+""" point to python 3 path
+let g:python3_host_prog = '~\scoop\apps\python\current\python.exe'
+
+""" Autoreload init.vim on save """ 
+"DOESNT WORK REVISIT: autocmd! bufwritepost ~\AppData\Local\nvim\init.vim source ~\AppData\Local\nvim\init.vim
+
+"end init.vim
+"endfunction
+" END MULTILINE COMMENT HACK

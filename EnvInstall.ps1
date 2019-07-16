@@ -23,7 +23,12 @@ catch {
     Write-Host "Already have plug.vim, skipping install plug.vim script"
 }
 
+
+Write-Host "Installing Ripgrep"
+scoop install ripgrep
 Write-Host "Installing Node"
 scoop install nodejs
 Write-Host "Installing Python"
 scoop install python
+Write-Host "Installing Pyton Neovim plugin"
+pip3 install neovim
