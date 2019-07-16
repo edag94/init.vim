@@ -1,35 +1,6 @@
-" Get the defaults that most users want.
-source $VIMRUNTIME/defaults.vim
-
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-else
-  set backup		" keep a backup file (restore to previous version)
-  if has('persistent_undo')
-    set undofile	" keep an undo file (undo changes after closing)
-  endif
-endif
-
-if &t_Co > 2 || has("gui_running")
-  " Switch on highlighting the last used search pattern.
-  set hlsearch
-endif
-
-" Put these in an autocmd group, so that we can delete them easily.
-augroup vimrcEx
-  au!
-
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
-augroup END
-""" END VIM DEFAULT CONFIG """
-
-" Setting up vim plugin manager below
+""" PLUGINS """ 
 call plug#begin('~/.vim/plugged')
 
-" Make sure you use single quotes
-
-" On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -43,9 +14,7 @@ Plug 'joshdick/onedark.vim'
 " by default, if you open tsx file, neovim does not show syntax colors
 " vim-tsx will do all the coloring for jsx in the .tsx file
 Plug 'ianks/vim-tsx'
-"------------------------ VIM TSX ------------------------
-" by default, if you open tsx file, neovim does not show syntax colors
-" typescript-vim will do all the coloring for typescript keywords
+" will do all the coloring for typescript keywords
 Plug 'leafgarland/typescript-vim'
 
 " git management plugin
@@ -56,14 +25,24 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" Access system clipboard " 
-set clipboard+=unnamedplus
-
 " Initialize plugin system
 call plug#end()
+""" END PLUGINS """
 
+" Line numbers on left side
+set number
+" Spaces & Tabs 
+set tabstop=4       " number of visual spaces per TAB
+set softtabstop=4   " number of spaces in tab when editing
+set shiftwidth=4    " number of spaces to use for autoindent
+set expandtab       " tabs are space
+set autoindent
+set copyindent      " copy indent from the previous line
+" Access system clipboard " 
+" set clipboard+=unnamedplus
+
+" True colors "
 set termguicolors
-""" END COLOR SCHEME """
 
 """ NERD TREE CONFIG """
 " Automatically boot up NERDTree on start in present dir
@@ -198,12 +177,12 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier']
 """ END COCNVIM CONFIG """
 
-" == AUTOCMD ================================ 
+" == TS AUTOCMD ================================ 
 " by default .ts file are not identified as typescript and .tsx files are not
 " identified as typescript react file, so add following
 au BufNewFile,BufRead *.ts setlocal filetype=typescript
 au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
-" == AUTOCMD END ================================
+" == TS AUTOCMD END ================================
 
 """ FZF CONFIG """
 nnoremap <C-p> :Files<Cr>
@@ -213,18 +192,8 @@ nnoremap <C-p> :Files<Cr>
 syntax on
 colorscheme onedark
 
-""" If init.vim fails and crashes shell, run with nvim --cmd silent! 
-
-set number
 
 """ terminal mode bindings """
 :tnoremap <ESC> <C-\><C-n>
 
-" Spaces & Tabs {{{
-set tabstop=4       " number of visual spaces per TAB
-set softtabstop=4   " number of spaces in tab when editing
-set shiftwidth=4    " number of spaces to use for autoindent
-set expandtab       " tabs are space
-set autoindent
-set copyindent      " copy indent from the previous line
-" }}} Spaces & Tabs
+""" If init.vim fails and crashes shell, run with nvim --cmd silent! 
